@@ -63,5 +63,6 @@ void stack(stack_t **stack, unsigned int line_number);
 void queue(stack_t **stack, unsigned int line_number);
 void comments(stack_t **stack, unsigned int line_number);
 void stack_mode(stack_t **stack, unsigned int line_number);
+void addqueue(stack_t **head, int n);
 
 #endif

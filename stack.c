@@ -9,12 +9,11 @@ void stack(stack_t **stack, unsigned int line_number)
 {
     (void)line_number;
 
-    stack_t *last = *stack;
-
     if (*stack == NULL || (*stack)->next == NULL)
         return;
 
-    last = *stack;
+    stack_t *temp = *stack;
+    stack_t *last = *stack;
 
     while (last->next != NULL)
         last = last->next;
@@ -24,3 +23,4 @@ void stack(stack_t **stack, unsigned int line_number)
     *stack = last->next;
     (*stack)->prev = NULL;
 }
+

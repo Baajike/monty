@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "monty.h"
 
 /**
@@ -31,10 +34,10 @@ int main(int argc, char *argv[])
     while ((read = getline(&line, &len, monty_file)) != -1)
     {
         line_number++;
-        execute_instruction(&stack, line, line_number);
+        execute_instruction(opcode, &stack, line, line_number);
 	}
 
-    free_stack(&stack);
+    free_stack(stack);
     free(line);
     fclose(monty_file);
 
