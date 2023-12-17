@@ -8,69 +8,44 @@
  */
 void queue(stack_t **stack, unsigned int line_number)
 {
-    (void)line_number;
+	(void)line_number;
 	(void)stack;
-	
-	stack_t *temp = *stack;
-
-    while (temp != NULL && temp->next != NULL)
-    {
-        temp = temp->next;
-    }
-
-    if (*stack != NULL)
-    {
-        (*stack)->prev = temp;
-    }
-
-    if (temp != NULL)
-    {
-        temp->next = *stack;
-    }
-
-    if (*stack != NULL)
-    {
-        *stack = (*stack)->next;
-        if (*stack != NULL)
-        {
-            (*stack)->prev = NULL;
-        }
-    }
+	bus.lifo_flag = 1;
 }
 
 /**
  * addqueue - Adds a node to the tail of the stack.
- * @head: Pointer to the head of the stack.
+ * @stack: Pointer to the head of the stack.
  * @n: Value to be added.
  * Return: No return.
  */
-void addqueue(stack_t **head, int n)
+void addqueue(stack_t **stack, int n)
 {
-    stack_t *new_node, *aux;
+	stack_t *new_node, *temp;
 
-    aux = *head;
-    new_node = malloc(sizeof(stack_t));
-    if (new_node == NULL)
-    {
-        fprintf(stderr, "Error: malloc failed\n");
-        exit(EXIT_FAILURE);
-    }
-    new_node->n = n;
-    new_node->next = NULL;
-    if (aux)
-    {
-        while (aux->next)
-            aux = aux->next;
-    }
-    if (!aux)
-    {
-        *head = new_node;
-        new_node->prev = NULL;
-    }
-    else
-    {
-        aux->next = new_node;
-        new_node->prev = aux;
-    }
+	temp = *stack;
+	new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
+	{
+	fprintf(stderr, "Error: malloc failed\n");
+	exit(EXIT_FAILURE);
+	}
+	new_node->n = n;
+	new_node->next = NULL;
+	if (temp)
+	{
+	while (temp->next)
+	temp = temp->next;
+	}
+	if (!temp)
+	{
+	*stack = new_node;
+	new_node->prev = NULL;
+	}
+	else
+	{
+	temp->next = new_node;
+	new_node->prev = temp;
+	}
 }
 

@@ -7,42 +7,34 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-        char *argument;
-        size_t len = 0;
-        ssize_t read;
-        int value = atoi(argument);
+	int n, j = 0;
+	int flag = 0;
 
-    if (stack == NULL)
-    {
-        fprintf(stderr, "L%u: Error - Stack is NULL\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	if (bus.argument)
+	{
+		if (bus.argument[0] == '-')
+			j++;
+		for (; bus.argument[j] != '\0'; j++)
+		{
+			if (bus.argument[j] > 57 || bus.argument[j] < 48)
+				flag = 1; }
+		if (flag == 1)
+		{ fprintf(stderr, "L%d: usage: push integer\n", line_number);
+			fclose(bus.file_pointer);
+			free(bus.file_content);
+			free_stack(*stack);
+			exit(EXIT_FAILURE); }}
+	else
+	{ fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		fclose(bus.file_pointer);
+		free(bus.file_content);
+		free_stack(*stack);
+		exit(EXIT_FAILURE);
+	}
 
-    if ((read = getline(&argument, &len, monty_file)) == -1)
-    {
-        fprintf(stderr, "L%u: usage: push integer\n", line_number);
-        free(argument);
-        exit(EXIT_FAILURE);
-    }
-
-    stack_t *new_node = malloc(sizeof(stack_t));
-    if (new_node == NULL)
-    {
-        fprintf(stderr, "Error: malloc failed\n");
-        free(argument);
-        exit(EXIT_FAILURE);
-    }
-
-    new_node->n = value;
-    new_node->prev = NULL;
-    new_node->next = *stack;
-
-    if (*stack != NULL)
-    {
-        (*stack)->prev = new_node;
-    }
-
-    *stack = new_node;
-
-    free(argument);
+	n = atoi(bus.argument);
+	if (bus.lifo_flag == 0)
+		addnode(stack, n);
+	else
+		addqueue(stack, n);
 }

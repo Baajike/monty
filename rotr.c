@@ -7,19 +7,19 @@
  */
 void rotr(stack_t **stack, unsigned int line_number)
 {
-    stack_t *temp = *stack;
+	stack_t *temp = *stack;
 
-    (void)line_number;
+	(void)line_number;
 
-    if (*stack == NULL || (*stack)->next == NULL)
-        return;
+	if (*stack == NULL || (*stack)->next == NULL)
+	return;
 
-    while (temp->next != NULL)
-        temp = temp->next;
+	while (temp->next != NULL)
+	temp = temp->next;
 
-    temp->prev->next = NULL;
-    temp->prev = NULL;
-    temp->next = *stack;
-    (*stack)->prev = temp;
-    *stack = temp;
+	temp->prev->next = NULL;
+	temp->prev = NULL;
+	temp->next = *stack;
+	(*stack)->prev = temp;
+	*stack = temp;
 }

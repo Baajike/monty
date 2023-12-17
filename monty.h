@@ -27,6 +27,23 @@ typedef struct stack_s
 } stack_t;
 
 /**
+ * struct bus_data - auxiliary data for Monty interpreter
+ * @argument: argument passed to the opcode
+ * @file_pointer: file being processed
+ * @file_content: content read from the file
+ * @lifo_flag: flag for LIFO (0) or FIFO (1) mode
+ */
+typedef struct bus_data
+{
+    char *argument;
+    FILE *file_pointer;
+    char *file_content;
+    int lifo_flag;
+} bus_t;
+extern bus_t bus;
+
+
+/**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
@@ -50,7 +67,7 @@ void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t *stack);
-void execute_instruction(char *opcode, stack_t **stack, unsigned int line_number);
+int execute_instruction(char *file_content, stack_t **stack, unsigned int line_number, FILE *file_pointer);
 void sub(stack_t **stack, unsigned int line_number);
 void my_div(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
@@ -63,6 +80,10 @@ void stack(stack_t **stack, unsigned int line_number);
 void queue(stack_t **stack, unsigned int line_number);
 void comments(stack_t **stack, unsigned int line_number);
 void stack_mode(stack_t **stack, unsigned int line_number);
-void addqueue(stack_t **head, int n);
+void addqueue(stack_t **stack, int n);
+void addnode(stack_t **stack, int n);
+char  *clean_line(char *file_content);
+ssize_t getstdin(char **lineptr, int file);
+char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
 
 #endif

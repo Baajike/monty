@@ -7,14 +7,17 @@
  */
 void mul(stack_t **stack, unsigned int line_number)
 {
-    
-    if (*stack == NULL || (*stack)->next == NULL)
-    {
-        fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
-        exit(EXIT_FAILURE);
-    }
 
-    (*stack)->next->n *= (*stack)->n;
+	if (*stack == NULL || (*stack)->next == NULL)
+{
+	fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
+	fclose(bus.file_pointer);
+	free(bus.file_content);
+	free_stack(*stack);
+	exit(EXIT_FAILURE);
+}
 
-    pop(stack, line_number);
+(*stack)->next->n *= (*stack)->n;
+
+pop(stack, line_number);
 }

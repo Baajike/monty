@@ -7,19 +7,25 @@
  */
 void pchar(stack_t **stack, unsigned int line_number)
 {
-    int ascii_value = (*stack)->n;
-    if (*stack == NULL)
-    {
-        fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+int ascii_value = (*stack)->n;
+	if (*stack == NULL)
+	{
+	fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
+	fclose(bus.file_pointer);
+	free(bus.file_content);
+	free_stack(*stack);
+	exit(EXIT_FAILURE);
+	}
 
-    if (ascii_value < 0 || ascii_value > 127)
-    {
-        fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	if (ascii_value < 0 || ascii_value > 127)
+	{
+	fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
+	fclose(bus.file_pointer);
+	free(bus.file_content);
+	free_stack(*stack);
+	exit(EXIT_FAILURE);
+	}
 
-    putchar((char)ascii_value);
-    putchar('\n');
+putchar((char)ascii_value);
+putchar('\n');
 }
